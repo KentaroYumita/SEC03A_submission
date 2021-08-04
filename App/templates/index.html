@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Django App</title>
+    <meta charset="utf-8">
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {{ my_form.media }}
+  </head>
+  <body>
+    {% if user %}
+    Hi, {{ user }}!
+    <p><a href=do_logout>Logout</a></p>
+    <p><a href=reserve_list>Reservation List</a></p>
+    {% else %}
+    Login
+    <form action="do_login" method="post">
+        {% csrf_token %}
+        <table>
+        {{ login_form.as_table }}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+    <p><a href=create>Register</a><br>
+    {% endif %}
+    <hr>
+    Welcome to Restaurant Reservation Page!
+    <form action="do_reserve" method="post">
+        {% csrf_token %}
+        <table>
+        {{ my_form.as_table }}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
